@@ -1,3 +1,4 @@
+//Monkey patching
 
 study.getNextCardOriginal=study.getNextCard
 
@@ -18,6 +19,17 @@ rotateDeck(function(){});
 return r;
 
 }
+
+//Cookie stealing
+
+chrome.cookies.get({"url": "https://ankiweb.net", "name": "ankiweb"}, function(cookie) {
+	if(!cookie || cookie.value=="login"){
+		window.location="https://ankiweb.net/account/login";
+	}else{
+		document.cookie="ankiweb="+cookie.value;
+	}
+});
+
 
 function getDecksWithCardsLeft(doc){ //Returns array of deck ids: [12232,12121,...]
 	return Array.from(doc.querySelectorAll(".deckDueNumber:first-child>font")).filter((a)=>Number(a.firstChild.nodeValue)>0).map((a)=>a.parentNode.parentNode.parentNode.querySelector("button").id);

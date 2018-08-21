@@ -18,6 +18,7 @@
 		"128": "icons/128.png"
 	},
 	"permissions": [
+		"cookies",
 		"https://ankiuser.net/*",
 		"https://ankiweb.net/*"
 	],

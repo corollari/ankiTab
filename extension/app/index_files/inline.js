@@ -5,8 +5,6 @@ require("babel-polyfill");
         var _ihost = "https://ankiuser.net";
         study = require("study").default;
 
-document.cookie = "ankiweb=CA2v5TWsMzZo1lk8";
-    
 //study.initStudy();
 
 function drawAnswer(){
