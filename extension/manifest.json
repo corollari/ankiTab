@@ -4,6 +4,9 @@
 	"description": "Replace the new tab with an anki window",
 	"manifest_version": 2,
 	"incognito": "split",
+	"background":{
+		"scripts":["bg.js"]
+        },
 	"browser_action": {
 		"default_icon": {
 			"16": "icons/16.png",
@@ -18,6 +21,7 @@
 		"128": "icons/128.png"
 	},
 	"permissions": [
+		"activeTab",
 		"cookies",
 		"https://ankiuser.net/*",
 		"https://ankiweb.net/*"
