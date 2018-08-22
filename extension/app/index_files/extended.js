@@ -14,9 +14,7 @@ study.answerCardOriginal=study.answerCard;
 study.answerCard=function(n){
 
 study.deck.cards=[];
-let r = study.answerCardOriginal(n);
-rotateDeck(function(){});
-return r;
+return study.answerCardOriginal(n);
 
 }
 
