@@ -46,11 +46,11 @@ framed.innerHTML=data;
 let decksLeft=getDecksWithCardsLeft(framed);
 decksLeft.sort();
 last=decksLeft.filter((id)=>id>last).shift() || decksLeft[0];
-$.post("https://ankiweb.net/decks/select/" + last, {});
+$.post("https://ankiweb.net/decks/select/" + last, {}, function(){
+		cb&&cb();
+	});
 });
 
 }
 
 study.initStudy();
-
-rotateDeck();
