@@ -20,7 +20,11 @@ study.drawAnswerOriginal=study.drawAnswer
 study.drawAnswer=function(){
 study.drawAnswerOriginal();
 for(let i=1; i<=4; i++){
-	document.querySelector('#ease'+i).addEventListener('click', function(){
+	let ezButton=document.querySelector('#ease'+i);
+	if(!ezButton){
+		break;
+	}
+	ezButton.addEventListener('click', function(){
 		study.answerCard(i);
 	});
 }
