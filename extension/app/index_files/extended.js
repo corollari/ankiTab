@@ -34,21 +34,23 @@ function getDecksWithCardsLeft(doc){ //Returns array of deck ids: [12232,12121,.
 }
 
 var framed = document.createElement('div');
-let last="";
 
 function rotateDeck(cb){ //Create an iframe of https://ankiweb.net/decks/ and change the deck so the cookie gets changed
-$.get("https://ankiweb.net/decks/",function( data ) {
+	$.get("https://ankiweb.net/decks/",function( data ) {
+		framed.innerHTML=data;
 
-framed.innerHTML=data;
+		let decksLeft=getDecksWithCardsLeft(framed);
+		decksLeft.sort();
 
-let decksLeft=getDecksWithCardsLeft(framed);
-decksLeft.sort();
-last=decksLeft.filter((id)=>id>last).shift() || decksLeft[0];
-$.post("https://ankiweb.net/decks/select/" + last, {}, function(){
-		cb&&cb();
+		chrome.storage.sync.get(["lastDeck"], function(result) {
+			let lastDeck=result.lastDeck||"";
+			lastDeck=decksLeft.filter((id)=>id>lastDeck).shift() || decksLeft[0];
+			$.post("https://ankiweb.net/decks/select/" + lastDeck, {}, function(){
+				cb&&cb();
+			});
+			chrome.storage.sync.set({lastDeck: lastDeck}, function() {});
+		});
 	});
-});
-
 }
 
 study.initStudy();

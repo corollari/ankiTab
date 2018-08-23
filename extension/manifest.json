@@ -22,6 +22,7 @@
 	},
 	"permissions": [
 		"activeTab",
+		"storage",
 		"cookies",
 		"https://ankiuser.net/*",
 		"https://ankiweb.net/*"
