@@ -1,14 +1,5 @@
 //Monkey patching
 
-study.getNextCardOriginal=study.getNextCard
-
-study.getNextCard=function(){
-	study.getNextCardOriginal();
-	for(let i=1; i<=2; i++){
-		study.currentCard[i]=study.currentCard[i].replace('src="', 'src="https://ankiuser.net/study/media/');
-	}
-}
-
 study.answerCardOriginal=study.answerCard;
 
 study.answerCard=function(n){
@@ -59,3 +50,5 @@ function rotateDeck(cb){ //Create an iframe of https://ankiweb.net/decks/ and ch
 }
 
 study.initStudy();
+
+document.querySelector("base").href="https://ankiuser.net/study/media/";
