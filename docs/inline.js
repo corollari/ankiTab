@@ -20,8 +20,9 @@ study.drawAnswerOriginal=study.drawAnswer
 study.drawAnswer=function(){
 study.drawAnswerOriginal();
 for(let i=1; i<=3; i++){
-	document.querySelector('#ease'+i).addEventListener('click', function(){
-		window.location=links[i-1];
-	});
+	let a=document.createElement('a');
+	a.href=links[i-1];
+	document.querySelector('#ease'+i).parentElement.appendChild(a);
+	a.appendChild(document.querySelector('#ease'+i));
 }
 }
