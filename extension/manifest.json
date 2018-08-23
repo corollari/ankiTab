@@ -29,6 +29,6 @@
 	],
 	"chrome_url_overrides" : {
 		"newtab": "app/index.html"
-	}
-
+	},
+	"options_page": "options/index.html"
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AnkiTab Options</title>
+	<link rel="stylesheet" href="../app/index_files/bootstrap.min.css">
+<style>
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+</style>
+</head>
+<body>
+
+<div class="vertical-center">
+<div class="container">
+<form id="optionsForm">
+  <div class="form-group">
+    <label for="interleavingCards">Size of card batches from each deck</label>
+    <input type="number" class="form-control" id="interleavingCards" placeholder="5" max="5" min="1">
+    <small id="emailHelp" class="form-text text-muted">This number will be used as the amount of cards from each deck that will be shown before triggering a deck change</small>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+</div>
+</div>
+
+<script src="./options.js"></script>
+</body>
+</html>

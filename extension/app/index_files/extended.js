@@ -13,7 +13,12 @@ study.answerCardOriginal=study.answerCard;
 
 study.answerCard=function(n){
 
-study.deck.cards=[];
+chrome.storage.sync.get(["interleavingTrigger"], function(result) {
+        while(study.deck.cards.length>Number(result.interleavingTrigger)){
+		study.deck.cards.pop();
+	}
+});
+
 return study.answerCardOriginal(n);
 
 }
