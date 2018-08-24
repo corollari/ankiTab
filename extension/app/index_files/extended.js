@@ -37,14 +37,19 @@ function rotateDeck(cb){ //Create an iframe of https://ankiweb.net/decks/ and ch
 
 		let decksLeft=getDecksWithCardsLeft(framed);
 
-		chrome.storage.sync.get(["lastDeck"], function(result) {
-			let lastDeck=result.lastDeck||"";
-			lastDeck=decksLeft.filter((id)=>id>lastDeck).shift() || decksLeft[0];
-			$.post("https://ankiweb.net/decks/select/" + lastDeck, {}, function(){
-				cb&&cb();
+		if(!decksLeft.length){ //All cards scheduled for today have been reviewed
+			$("body").html("<div style='text-align: center;' class='vertical-center'><main class='container'><h1>Congratulations!</h1><hr><h3>All cards scheduled for today have been reviewed</h3></main></div>");
+		}
+		else{
+			chrome.storage.sync.get(["lastDeck"], function(result) {
+				let lastDeck=result.lastDeck||"";
+				lastDeck=decksLeft.filter((id)=>id>lastDeck).shift() || decksLeft[0];
+				$.post("https://ankiweb.net/decks/select/" + lastDeck, {}, function(){
+					cb&&cb();
+				});
+				chrome.storage.sync.set({lastDeck: lastDeck}, function() {});
 			});
-			chrome.storage.sync.set({lastDeck: lastDeck}, function() {});
-		});
+		}
 	});
 }
 
