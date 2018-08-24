@@ -25,7 +25,7 @@ chrome.cookies.get({"url": "https://ankiweb.net", "name": "ankiweb"}, function(c
 });
 
 
-function getDecksWithCardsLeft(doc){ //Returns array of deck ids: [12232,12121,...]
+function getDecksWithCardsLeft(doc){ //Returns sorted array of deck ids: ["did12121", "did12368", ...]
 	return Array.from(doc.querySelectorAll(".deckDueNumber>font")).filter((a)=>Number(a.firstChild.nodeValue)>0).map((a)=>a.parentNode.parentNode.parentNode.querySelector("button").id).sort().filter((item, pos, ary) => !pos || item != ary[pos - 1]);
 }
 
@@ -36,7 +36,6 @@ function rotateDeck(cb){ //Create an iframe of https://ankiweb.net/decks/ and ch
 		framed.innerHTML=data;
 
 		let decksLeft=getDecksWithCardsLeft(framed);
-		decksLeft.sort();
 
 		chrome.storage.sync.get(["lastDeck"], function(result) {
 			let lastDeck=result.lastDeck||"";
