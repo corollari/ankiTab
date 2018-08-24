@@ -54,7 +54,17 @@ chrome.cookies.get({"url": "https://ankiweb.net", "name": "ankiweb"}, function(c
 	if(!cookie || cookie.value=="login"){
 		window.location="https://ankiweb.net/account/login";
 	}else{
-		document.cookie="ankiweb="+cookie.value;
-		study.initStudy();
+		chrome.cookies.set( 
+		{
+			url: "https://ankiuser.net",
+			name: cookie.name,
+			value: cookie.value,
+			domain: "ankiuser.net",
+			path: cookie.path,
+			secure: cookie.secure,
+			httpOnly: cookie.httpOnly,
+			sameSite: cookie.sameSite
+		},
+		()=>study.initStudy());
 	}
 });
