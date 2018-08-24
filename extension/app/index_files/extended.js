@@ -14,17 +14,6 @@ chrome.storage.sync.get(["interleavingTrigger"], function(result) {
 
 }
 
-//Cookie stealing
-
-chrome.cookies.get({"url": "https://ankiweb.net", "name": "ankiweb"}, function(cookie) {
-	if(!cookie || cookie.value=="login"){
-		window.location="https://ankiweb.net/account/login";
-	}else{
-		document.cookie="ankiweb="+cookie.value;
-	}
-});
-
-
 function getDecksWithCardsLeft(doc){ //Returns sorted array of deck ids: ["did12121", "did12368", ...]
 	return Array.from(doc.querySelectorAll(".deckDueNumber>font")).filter((a)=>Number(a.firstChild.nodeValue)>0).map((a)=>a.parentNode.parentNode.parentNode.querySelector("button").id).sort().filter((item, pos, ary) => !pos || item != ary[pos - 1]);
 }
@@ -59,4 +48,13 @@ $(document).keyup(function(e) {
 
 document.querySelector("base").href="https://ankiuser.net/study/media/";
 
-study.initStudy();
+//Cookie stealing
+
+chrome.cookies.get({"url": "https://ankiweb.net", "name": "ankiweb"}, function(cookie) {
+	if(!cookie || cookie.value=="login"){
+		window.location="https://ankiweb.net/account/login";
+	}else{
+		document.cookie="ankiweb="+cookie.value;
+		study.initStudy();
+	}
+});
