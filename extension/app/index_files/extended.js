@@ -53,6 +53,10 @@ function rotateDeck(cb){ //Create an iframe of https://ankiweb.net/decks/ and ch
 	});
 }
 
-study.initStudy();
+$(document).keyup(function(e) {
+	(e.which == 32 || e.which==13) && study.drawAnswer();
+});
 
 document.querySelector("base").href="https://ankiuser.net/study/media/";
+
+study.initStudy();
