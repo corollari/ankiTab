@@ -5,12 +5,12 @@ study.answerCardOriginal=study.answerCard;
 study.answerCard=function(n){
 
 chrome.storage.sync.get(["interleavingTrigger"], function(result) {
-        while(study.deck.cards.length>Number(result.interleavingTrigger)){
+	while(study.deck.cards.length>=Number(result.interleavingTrigger)){
 		study.deck.cards.pop();
 	}
+	study.answerCardOriginal(n);
+	study.save();
 });
-
-return study.answerCardOriginal(n);
 
 }
 
