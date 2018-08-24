@@ -1,6 +1,6 @@
 require("babel-polyfill");
 
-let links=["firefox", "https://github.com/corollari/ankiTab", "chrome"];
+let links=["https://addons.mozilla.org/en-US/firefox/addon/ankitab/", "https://github.com/corollari/ankiTab", "https://chrome.google.com/webstore/detail/ankitab/ihoaepdiibjbifnhcjoaddgcnfgjmjdk"];
 
 
         var _host = "https://ankiweb.net";

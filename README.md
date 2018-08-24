@@ -20,7 +20,7 @@
 ![screenshot](https://raw.githubusercontent.com/corollari/ankiTab/master/promo/screenshot.png)
 
 ## Install
-The extension can be installed through [Chrome's Web Store](https://chrome.google.com/webstore/detail/waspline-reader/ndlnnojbbcbdpkccfmcgbopalpbmhbhm) or [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/waspline-reader/)
+The extension can be installed through [Chrome's Web Store](https://chrome.google.com/webstore/detail/ankitab/ihoaepdiibjbifnhcjoaddgcnfgjmjdk) or [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/ankitab/)
 
 ## Build
 ```bash
