@@ -26,7 +26,7 @@ chrome.cookies.get({"url": "https://ankiweb.net", "name": "ankiweb"}, function(c
 
 
 function getDecksWithCardsLeft(doc){ //Returns array of deck ids: [12232,12121,...]
-	return Array.from(doc.querySelectorAll(".deckDueNumber:first-child>font")).filter((a)=>Number(a.firstChild.nodeValue)>0).map((a)=>a.parentNode.parentNode.parentNode.querySelector("button").id);
+	return Array.from(doc.querySelectorAll(".deckDueNumber>font")).filter((a)=>Number(a.firstChild.nodeValue)>0).map((a)=>a.parentNode.parentNode.parentNode.querySelector("button").id).sort().filter((item, pos, ary) => !pos || item != ary[pos - 1]);
 }
 
 var framed = document.createElement('div');
