@@ -63,7 +63,6 @@ chrome.cookies.get({"url": "https://ankiweb.net", "name": "ankiweb"}, function(c
 			path: cookie.path,
 			secure: cookie.secure,
 			httpOnly: cookie.httpOnly,
-			sameSite: cookie.sameSite
 		},
 		()=>study.initStudy());
 	}
