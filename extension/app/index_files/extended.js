@@ -4,7 +4,7 @@ study.answerCardOriginal=study.answerCard;
 
 study.answerCard=function(n){
 
-chrome.storage.sync.get(["interleavingTrigger"], function(result) {
+chrome.storage.local.get(["interleavingTrigger"], function(result) {
 	while(study.deck.cards.length>=Number(result.interleavingTrigger)){
 		study.deck.cards.pop();
 	}
@@ -30,13 +30,13 @@ function rotateDeck(cb){ //Create an iframe of https://ankiweb.net/decks/ and ch
 			$("body").html("<div style='text-align: center;' class='vertical-center'><main class='container'><h1>Congratulations!</h1><hr><h3>All cards scheduled for today have been reviewed</h3></main></div>");
 		}
 		else{
-			chrome.storage.sync.get(["lastDeck"], function(result) {
+			chrome.storage.local.get(["lastDeck"], function(result) {
 				let lastDeck=result.lastDeck||"";
 				lastDeck=decksLeft.filter((id)=>id>lastDeck).shift() || decksLeft[0];
 				$.post("https://ankiweb.net/decks/select/" + lastDeck, {}, function(){
 					cb&&cb();
 				});
-				chrome.storage.sync.set({lastDeck: lastDeck}, function() {});
+				chrome.storage.local.set({lastDeck: lastDeck}, function() {});
 			});
 		}
 	});
@@ -52,7 +52,7 @@ document.querySelector("base").href="https://ankiuser.net/study/media/";
 
 chrome.cookies.get({"url": "https://ankiweb.net", "name": "ankiweb"}, function(cookie) {
 	if(!cookie || cookie.value=="login"){
-		window.location="https://ankiweb.net/account/login";
+		window.location=chrome.runtime.getURL("../login/index.html")
 	}else{
 		chrome.cookies.set( 
 		{

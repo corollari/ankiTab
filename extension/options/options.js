@@ -1,4 +1,4 @@
-chrome.storage.sync.get(["interleavingTrigger"], function(result) {
+chrome.storage.local.get(["interleavingTrigger"], function(result) {
 	document.querySelector("#interleavingCards").value=result.interleavingTrigger;
 });
 
@@ -8,5 +8,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function saved(e){
 	e.preventDefault();
-	chrome.storage.sync.set({interleavingTrigger: document.querySelector('#interleavingCards').value}, function() {});
+	chrome.storage.local.set({interleavingTrigger: document.querySelector('#interleavingCards').value}, function() {});
 }
