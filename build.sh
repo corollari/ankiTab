@@ -1,4 +1,4 @@
-while getopts ":i" opt; do
+while getopts "ifc" opt; do
   case $opt in
     i)
       convert promo/icon.png -resize 16x16 extension/icons/16.png
@@ -8,10 +8,20 @@ while getopts ":i" opt; do
       convert promo/icon.png -resize 48x48 extension/icons/48.png
       convert promo/icon.png -resize 128x128 extension/icons/128.png
       ;;
+    f)
+      cp manifests/firefoxManifest.json extension/manifest.json
+      exit
+      ;;
+    c)
+      cp manifests/chromeManifest.json extension/manifest.json
+      exit
+      ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       ;;
   esac
 done
-
-(cd extension && zip -r ../ankiTab.zip .)
+cp manifests/firefoxManifest.json extension/manifest.json
+(cd extension && zip -r ../firefox.zip .)
+cp manifests/chromeManifest.json extension/manifest.json
+(cd extension && zip -r ../chrome.zip .)

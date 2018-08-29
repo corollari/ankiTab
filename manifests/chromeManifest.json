@@ -1,0 +1,34 @@
+{
+	"name": "AnkiTab",
+	"version": "0.1",
+	"description": "Replace new tab page with Anki flashcards",
+	"manifest_version": 2,
+	"incognito": "split",
+	"background":{
+		"scripts":["bg.js"]
+        },
+	"browser_action": {
+		"default_icon": {
+			"16": "icons/16.png",
+			"24": "icons/24.png",
+			"32": "icons/32.png"
+		},
+		"default_title": "AnkiTab"
+	},
+	"icons": {
+		"16": "icons/16.png",
+		"48": "icons/48.png",
+		"128": "icons/128.png"
+	},
+	"permissions": [
+		"activeTab",
+		"storage",
+		"cookies",
+		"https://ankiuser.net/*",
+		"https://ankiweb.net/*"
+	],
+	"chrome_url_overrides" : {
+		"newtab": "app/index.html"
+	},
+	"options_page": "options/index.html"
+}
