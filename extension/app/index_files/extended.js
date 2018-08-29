@@ -1,3 +1,29 @@
+//AnkiConnect
+
+function ankiConnectInvoke(action, version, params={}, cb) {
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('error', () => reject('failed to connect to AnkiConnect'));
+        xhr.addEventListener('load', () => {
+            try {
+                const response = JSON.parse(xhr.responseText);
+                if (response.error) {
+                    throw response.error;
+                } else {
+                    if (response.hasOwnProperty('result')) {
+                        cb();
+                    } else {
+                        console.log('failed to get results from AnkiConnect');
+                    }
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        });
+
+        xhr.open('POST', 'http://127.0.0.1:8765');
+        xhr.send(JSON.stringify({action, version, params}));
+}
+
 //Monkey patching
 
 study.answerCardOriginal=study.answerCard;
@@ -8,8 +34,18 @@ chrome.storage.local.get(["interleavingTrigger"], function(result) {
 	while(study.deck.cards.length>=Number(result.interleavingTrigger)){
 		study.deck.cards.pop();
 	}
-	study.answerCardOriginal(n);
-	study.save();
+	if(n==0){
+		ankiConnectInvoke('suspend', 6, {
+			"cards": [study.currentCard[0]]
+		}, ()=>{
+			ankiConnectInvoke('sync', 6, {}, ()=>{});
+			study.currentCard = null;
+                	study.checkForNextCard();
+		});
+	}else{
+		study.answerCardOriginal(n);
+		study.save();
+	}
 });
 
 }

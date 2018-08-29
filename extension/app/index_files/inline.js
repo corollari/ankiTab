@@ -19,13 +19,12 @@ study.drawAnswerOriginal=study.drawAnswer
 
 study.drawAnswer=function(){
 study.drawAnswerOriginal();
-for(let i=1; i<=4; i++){
+for(let i=0; i<=4; i++){
 	let ezButton=document.querySelector('#ease'+i);
-	if(!ezButton){
-		break;
-	}
+	if(ezButton){
 	ezButton.addEventListener('click', function(){
 		study.answerCard(i);
 	});
+	}
 }
 }

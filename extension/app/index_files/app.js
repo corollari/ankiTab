@@ -836,7 +836,9 @@ function() {
             },
             _getButtons: function() {
                 var t = this.currentCard[this.CINTS];
-                return 4 === t.length ? [[1, "Again", t[0]], [2, "Hard", t[1]], [3, "Good", t[2]], [4, "Easy", t[3]]] : 3 === t.length ? [[1, "Again", t[0]], [2, "Good", t[1]], [3, "Easy", t[2]]] : [[1, "Again", t[0]], [2, "Good", t[1]]]
+                let arr=(4 === t.length ? [[1, "Again", t[0]], [2, "Hard", t[1]], [3, "Good", t[2]], [4, "Easy", t[3]]] : 3 === t.length ? [[1, "Again", t[0]], [2, "Good", t[1]], [3, "Easy", t[2]]] : [[1, "Again", t[0]], [2, "Good", t[1]]]);
+		    arr.push([0, "Suspend", 999]);
+		    return arr;
             },
             answerCard: function(t) {
                 "answerShown" === this.state && (t > this.currentCard[this.CINTS].length || (this.state = "initial",
