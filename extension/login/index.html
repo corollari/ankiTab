@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AnkiWeb Login</title>
+	<link rel="stylesheet" href="../app/index_files/bootstrap.min.css">
+<style>
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+</style>
+</head>
+<body>
+
+<div class="vertical-center">
+<div class="container">
+	For the extension to work properly, it is required that you log in on ankiweb.net, either through the following form or through <a href="https://ankiweb.net/account/login">ankiweb</a>
+	<hr>
+<form>
+  <div class="form-group">
+    <label for="password">Email address</label>
+    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+    <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+</div>
+</div>
+
+<link rel="stylesheet" href="">
+<script src="../app/index_files/vendor.js"></script>
+<script src="./login.js"></script>
+</body>
+</html>
