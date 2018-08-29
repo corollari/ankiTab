@@ -23,10 +23,30 @@
 The extension can be installed through [Chrome's Web Store](https://chrome.google.com/webstore/detail/ankitab/ihoaepdiibjbifnhcjoaddgcnfgjmjdk) or [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/ankitab/)
 
 ## Build
+##### Setup:
 ```bash
 git clone https://github.com/corollari/ankiTab.git
 cd ankiTab
+```
+
+##### Build .zip packages for Firefox and Chrome:
+```bash
 bash build.sh
+```
+
+##### Prepare the extension to be loaded unpacked into Firefox:
+```bash
+bash build.sh -f
+```
+
+##### Prepare the extension to be loaded unpacked into Chrome:
+```bash
+bash build.sh -c
+```
+
+##### Build the images (only necessary after changing the icon):
+```bash
+bash build.sh -i
 ```
 
 ## Credits
