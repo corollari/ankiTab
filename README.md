@@ -24,7 +24,7 @@ The extension can be installed through [Chrome's Web Store](https://chrome.googl
 
 ## Build
 ```bash
-git clone --recursive https://github.com/corollari/ankiTab.git
+git clone https://github.com/corollari/ankiTab.git
 cd ankiTab
 bash build.sh
 ```
