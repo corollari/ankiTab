@@ -1,5 +1,10 @@
-chrome.storage.local.get(["interleavingTrigger"], function(result) {
-	document.querySelector("#interleavingCards").value=result.interleavingTrigger;
+chrome.storage.local.get(null, function(result) { //Get everything stored in chrome.storage.local
+	for(s in result){
+		let elem=document.querySelector('#'+s);
+		if(elem){
+			elem.value=result[s];
+		}
+	}
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -8,9 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function saved(e){
 	e.preventDefault();
-	chrome.storage.local.set({interleavingTrigger: document.querySelector('#interleavingCards').value}, function() {});
-	document.querySelector(".alert").style.opacity=1;
-	let fade=setInterval(()=>{
-		(document.querySelector(".alert").style.opacity-=0.01)?0:clearInterval(fade);
-	}, 30);
+	settings={}
+	document.querySelectorAll('input').forEach((s)=> settings[s.id]=s.value);
+	chrome.storage.local.set(settings, function() {
+		document.querySelector(".alert").style.opacity=1;
+		let fade=setInterval(()=>{
+			(document.querySelector(".alert").style.opacity-=0.01)?0:clearInterval(fade);
+		}, 30);
+	});
 }
