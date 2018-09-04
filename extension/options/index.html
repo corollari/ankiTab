@@ -11,12 +11,18 @@
   display: flex;
   align-items: center;
 }
+.alert{
+	opacity:0;
+}
 </style>
 </head>
 <body>
 
 <div class="vertical-center">
 <div class="container">
+	<div class="alert alert-success" role="alert">
+		<strong>Success!</strong> All settings have been saved.
+	</div>
 <form id="optionsForm">
   <div class="form-group">
     <label for="interleavingCards">Size of card batches from each deck</label>
