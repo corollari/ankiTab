@@ -15,8 +15,7 @@ export default function rotateDeck(cb){ //Create an iframe of https://ankiweb.ne
                 }
                 else{
                         chrome.storage.local.get(["lastDeck"], function(result) {
-                                let lastDeck=result.lastDeck||"";
-                                lastDeck=decksLeft.filter((id)=>id>lastDeck).shift() || decksLeft[0];
+                                let lastDeck=decksLeft.filter((id)=>id>result.lastDeck).shift() || decksLeft[0];
                                 $.post("https://ankiweb.net/decks/select/" + lastDeck, {}, function(){
                                         cb&&cb();
                                 });
