@@ -1,4 +1,4 @@
-import study from "./extended/monkeyPatch.js";
+import study from "./extended/beta.js";
 import "./extended/keybindings.js";
 
 document.querySelector("base").href="https://ankiuser.net/study/media/";

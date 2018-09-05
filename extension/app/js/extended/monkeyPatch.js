@@ -3,17 +3,22 @@ import study from "../csp/inline.js";
 let answerCardOriginal=study.answerCard.bind(study);
 
 study.answerCard=function(n){
+	answerCardOriginal(n);
+	study.save();
+}
 
+let getNextCardOriginal=study.getNextCard.bind(study);
+
+study.getNextCard=function(){
+	getNextCardOriginal();
+	console.log("t: "+study.deck.cards.length);
 	chrome.storage.local.get(["interleavingTrigger", "interleavingDisabled"], function(result) {
 		if(!result.interleavingDisabled){
 			while(study.deck.cards.length>=Number(result.interleavingTrigger)){
 				study.deck.cards.pop();
 			}
 		}
-		answerCardOriginal(n);
-		study.save();
 	});
-
 }
 
 export default study;

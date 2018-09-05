@@ -12,6 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.querySelector('#interleavingDisabled').addEventListener('input', ()=>{
 		document.querySelector("#interleavingTrigger").disabled=document.querySelector("#interleavingDisabled").checked;
 	});
+	document.querySelector('#betaEnabled').addEventListener('input', ()=>{
+		chrome.permissions.request({
+			origins: ["https://127.0.0.1:8765/"]
+		}, function(granted) { // The callback argument will be true if the user granted the permissions.
+			if (!granted) {
+				document.querySelector("#betaEnabled").checked=false;
+			}
+		});
+	});
 });
 
 function saved(e){
