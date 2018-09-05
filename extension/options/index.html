@@ -24,8 +24,9 @@
 		<strong>Success!</strong> All settings have been saved.
 	</div>
 <form id="optionsForm">
+	<h4>Interleaving</h4>
   <div class="form-group">
-  <label for="interleavingTrigger"><strong>Interleaving:</strong> Size of card batches from each deck</label>
+  <label for="interleavingTrigger">Size of card batches from each deck</label>
     <input type="number" class="form-control" id="interleavingTrigger" max="5" min="1">
     <small id="emailHelp" class="form-text text-muted">Number of cards from each deck that will be shown before triggering a deck change (interleaving)</small>
   </div>
@@ -33,6 +34,18 @@
     <label class="form-check-label" for="interleavingDisabled">
       <input type="checkbox" class="form-check-input" id="interleavingDisabled">
       Disable interleaving
+    </label>
+  </div>
+  <hr>
+  <h4>Beta</h4>
+  The following list of beta features, which require running Anki with <a href="https://ankiweb.net/shared/info/2055492159">AnkiConnect</a> installed to work, are still getting polished and might have a few rough edges:
+  <ul>
+	  <li>Suspend card button</li>
+  </ul>
+  <div class="form-check">
+    <label class="form-check-label" for="betaEnabled">
+      <input type="checkbox" class="form-check-input" id="betaEnabled">
+      Enable beta features
     </label>
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
