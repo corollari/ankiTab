@@ -3,5 +3,5 @@ chrome.browserAction.onClicked.addListener(function (tab) { //Fired when the use
       //chrome.tabs.create({ url: "app/index.html" });
 });
 chrome.runtime.onInstalled.addListener(function() {
-	chrome.storage.local.set({interleavingTrigger: 5, lastDeck:""}, function() {}); //Set default values
+	chrome.storage.local.set({interleavingTrigger: 5, lastDeck:"", interleavingDisabled:false}, function() {}); //Set default values
 });

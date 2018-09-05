@@ -25,9 +25,15 @@
 	</div>
 <form id="optionsForm">
   <div class="form-group">
-    <label for="interleavingTrigger">Size of card batches from each deck</label>
+  <label for="interleavingTrigger"><strong>Interleaving:</strong> Size of card batches from each deck</label>
     <input type="number" class="form-control" id="interleavingTrigger" max="5" min="1">
-    <small id="emailHelp" class="form-text text-muted">This number will be used as the amount of cards from each deck that will be shown before triggering a deck change</small>
+    <small id="emailHelp" class="form-text text-muted">Number of cards from each deck that will be shown before triggering a deck change (interleaving)</small>
+  </div>
+  <div class="form-check">
+    <label class="form-check-label" for="interleavingDisabled">
+      <input type="checkbox" class="form-check-input" id="interleavingDisabled">
+      Disable interleaving
+    </label>
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
