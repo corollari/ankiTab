@@ -300,10 +300,10 @@ import rotateDeck from "../extended/rotateDeck.js";
         return (0, _larouxAjaxJs2["default"])(className).addClass("invisible");
       },
       showWaiting : function() {
-        return this.vshow("#activity");
+        return; //this.vshow("#activity");
       },
       hideWaiting : function() {
-        return this.vhide("#activity");
+        return; //this.vhide("#activity");
       },
       showQuiz : function() {
         return this.vshow("#quiz");
