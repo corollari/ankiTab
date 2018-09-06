@@ -1,5 +1,27 @@
 function getDecksWithCardsLeft(doc){ //Returns sorted array of deck ids: ["did12121", "did12368", ...]
-        return Array.from(doc.querySelectorAll(".deckDueNumber>font")).filter((a)=>Number(a.firstChild.nodeValue)>0).map((a)=>a.parentNode.parentNode.parentNode.querySelector("button").id).sort().filter((item, pos, ary) => !pos || item != ary[pos - 1]);
+function getId(elem){
+	return elem.firstElementChild.firstElementChild.id;
+}
+
+function countNbsp(elem){
+	return (elem.firstElementChild.firstElementChild.innerHTML.match(/&nbsp;/g) || []).length;
+}
+
+return Array.from(doc.querySelectorAll(".row.light-bottom-border") //Get all decks
+).sort((a,b)=> //Sort by id
+	a.firstElementChild.firstElementChild.id>b.firstElementChild.firstElementChild.id
+).filter((e, i, arr)=>{ //Remove parent decks
+	if(!arr[i+1]){
+		return true;
+	}
+	return countNbsp(e)>=countNbsp(arr[i+1]);
+}).filter((elem)=> //Remove decks that have no cards left to review
+	(Array.from(elem.querySelectorAll(".deckDueNumber>font")).filter((e)=>
+		Number(e.firstChild.nodeValue)>0
+	).length)>0
+).map((elem)=> //Get the ids of the decks left
+	getId(elem)
+).sort(); //Sort ids
 }
 
 var framed = document.createElement('div');
