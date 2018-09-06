@@ -360,7 +360,7 @@ import rotateDeck from "../extended/rotateDeck.js";
         }, "json");
         jqXHR.fail(function(canCreateDiscussions, isSlidingUp, dontForceConstraints) {
           img.hideWaiting();
-          alert("Error while saving latest answers. Reloading...");
+          alert("Error while sending a request to the server. This may happen if a lot of new tabs have been opened at once or several questions have been reviewed really quickly. If this keeps happening, you may increase the interleaving number on the options page or contact the dev at ankitab@albert.sh. Reloading...");
           window.location.reload();
         });
       },
