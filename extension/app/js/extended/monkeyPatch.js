@@ -11,7 +11,6 @@ let getNextCardOriginal=study.getNextCard.bind(study);
 
 study.getNextCard=function(){
 	getNextCardOriginal();
-	console.log("t: "+study.deck.cards.length);
 	chrome.storage.local.get(["interleavingTrigger", "interleavingDisabled"], function(result) {
 		if(!result.interleavingDisabled){
 			while(study.deck.cards.length>=Number(result.interleavingTrigger)){

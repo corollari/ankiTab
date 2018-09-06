@@ -162,7 +162,7 @@ import rotateDeck from "../extended/rotateDeck.js";
           var feedbackicons = (0, _larouxAjaxJs2["default"])("#qa_box");
           /** @type {string} */
           feedbackicons[0].className = "card card" + (this.currentCard[this.CORD] + 1);
-          (0, _larouxAjaxJs2["default"])("#qa").html(this.wrappedQA("q"));
+          this.wrappedQA("q");
           this._resizeFonts();
           this.vshow("#ansbut");
           (0, _larouxAjaxJs2["default"])("#ansbuta").focus();
@@ -221,7 +221,7 @@ import rotateDeck from "../extended/rotateDeck.js";
         /** @type {string} */
         this.state = "answerShown";
         this.vshow("#easebuts");
-        (0, _larouxAjaxJs2["default"])("#qa").html(this.wrappedQA("a"));
+        this.wrappedQA("a");
         this._resizeFonts();
         (0, _larouxAjaxJs2["default"])("#ease" + name).focus();
         /** @type {(Element|null)} */
@@ -376,16 +376,50 @@ import rotateDeck from "../extended/rotateDeck.js";
          * @param {string} str
          * @return {?}
          */
+	let scripts=[];
         var opening_ellipsis = function(wordVal, str) {
           if (/.mp3/i.test(str)) {
             /** @type {string} */
-            var node = '<div style="display: inline-block;" id="_player_' + targetIndex + '"></div>\n<div style="display: inline-block; font-size: 20px !important;" id="jp_container_' + targetIndex + '">\n <a href="#" class="jp-play">Play</a>\n <a href="#" class="jp-pause">Pause</a>\n</div>\n<script type="text/javascript">\n  $("#_player_' + targetIndex + '").jPlayer({\n   ready: function () {\n    $(this).jPlayer("setMedia", {\n     mp3: "' + str + '"\n    });\n   },\n   ended: function () {\n    $(this).jPlayer("setMedia", {\n     mp3: "' + 
-            str + '"\n    });\n    \n   },\n   error: function (event) {\n    if (event.jPlayer.error.type == $.jPlayer.error.URL) {\n        $("#jp_container_' + targetIndex + ' .jp-play").text("(missing audio)");\n    } else {\n        console.warn("Error playing file: "+event.jPlayer.error.type);\n    }\n   },\n   cssSelectorAncestor: "#jp_container_' + targetIndex + '",\n   swfPath: "/static/",\n   supplied: "mp3",\n   errorAlerts: true,\n   preload:"none"\n  });\n\x3c/script>';
-            return targetIndex = targetIndex + 1, node;
+            var node = '<div style="display: inline-block;" id="_player_' + targetIndex + '"></div>\n<div style="display: inline-block; font-size: 20px !important;" id="jp_container_' + targetIndex + '">\n <a href="#" class="jp-play">Play</a>\n <a href="#" class="jp-pause">Pause</a>\n</div>'; 
+            scripts.push({targetIndex, str});
+            targetIndex = targetIndex + 1;
+            return node;
           }
           return "";
         };
-        return r1 = r1.replace(/\[sound:(.+?)\]/g, opening_ellipsis), r1 = r1.replace(/\[\[type:.+?\]\]/g, ""), r1 = r1 + c2;
+        r1 = r1.replace(/\[sound:(.+?)\]/g, opening_ellipsis);
+	r1 = r1.replace(/\[\[type:.+?\]\]/g, "");
+	r1 = r1 + c2;
+        (0, _larouxAjaxJs2["default"])("#qa").html(r1);
+	for(let i=0; i<scripts.length; i++){
+		let targetIndex=scripts[i].targetIndex;
+		let str=scripts[i].str;
+
+		(0, _larouxAjaxJs2["default"])("#_player_"+targetIndex).jPlayer({
+			ready: function () {
+				(0, _larouxAjaxJs2["default"])(this).jPlayer("setMedia", {
+					mp3: str
+				});
+			},
+			ended: function () {
+				(0, _larouxAjaxJs2["default"])(this).jPlayer("setMedia", {
+					mp3: str
+				});
+			},
+			error: function (event) {
+				if (event.jPlayer.error.type == (0, _larouxAjaxJs2["default"]).jPlayer.error.URL) {
+					(0, _larouxAjaxJs2["default"])("#jp_container_"+targetIndex+" .jp-play").text("(missing audio)");
+				} else {
+					console.warn("Error playing file: "+event.jPlayer.error.type);
+				}
+			},
+			cssSelectorAncestor: "#jp_container_"+targetIndex,
+			swfPath: "/static/",
+			supplied: "mp3",
+			errorAlerts: true,
+			preload:"none"
+		});
+	}
       },
       showDesc : function() {
         return (0, _larouxAjaxJs2["default"])("#shortdesc").hide(), (0, _larouxAjaxJs2["default"])("#fulldesc").show(), false;
