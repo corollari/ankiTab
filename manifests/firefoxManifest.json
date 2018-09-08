@@ -1,6 +1,6 @@
 {
 	"name": "AnkiTab",
-	"version": "0.3",
+	"version": "0.3.1",
 	"description": "Replace new tab page with Anki flashcards",
 	"manifest_version": 2,
 	"background":{
@@ -27,6 +27,12 @@
 		"https://ankiweb.net/*"
 	],
 	"optional_permissions": [ "https://127.0.0.1:8765/" ],
+	"content_scripts": [
+		{
+			"matches": ["https://ankiweb.net/decks/"],
+			"js": ["contentScripts/ankiweb_decks.js"]
+		}
+	],
 	"chrome_url_overrides" : {
 		"newtab": "app/index.html"
 	},

@@ -1,15 +1,26 @@
-function getDecksWithCardsLeft(doc){ //Returns sorted array of deck ids: ["did12121", "did12368", ...]
+function getDecksWithCardsLeft(doc){ //Returns a sorted array of deck ids: ["did12121", "did12368", ...] and an array of deck IDs associated with the respective deck names
 function getId(elem){
 	return elem.firstElementChild.firstElementChild.id;
+}
+
+function getName(elem){
+	return elem.firstElementChild.firstElementChild.innerText.trim();
 }
 
 function countNbsp(elem){
 	return (elem.firstElementChild.firstElementChild.innerHTML.match(/&nbsp;/g) || []).length;
 }
 
-return Array.from(doc.querySelectorAll(".row.light-bottom-border") //Get all decks
-).sort((a,b)=> //Sort by id
-	a.firstElementChild.firstElementChild.id>b.firstElementChild.firstElementChild.id
+let decks = Array.from(doc.querySelectorAll(".row.light-bottom-border")); //Get all decks
+
+let deckNames = {};
+
+decks.forEach((deck) => {
+	deckNames[getId(deck)]=getName(deck);
+});
+
+let decksLeft = decks.sort((a,b)=> //Sort by id
+	getId(a)>getId(b)
 ).filter((e, i, arr)=>{ //Remove parent decks
 	if(!arr[i+1]){
 		return true;
@@ -22,6 +33,9 @@ return Array.from(doc.querySelectorAll(".row.light-bottom-border") //Get all dec
 ).map((elem)=> //Get the ids of the decks left
 	getId(elem)
 ).sort(); //Sort ids
+
+return {deckNames, decksLeft}
+
 }
 
 var framed = document.createElement('div');
@@ -32,10 +46,14 @@ export default function rotateDeck(cb){ //Create an iframe of https://ankiweb.ne
 			cb&&cb();
 		}
 		else{
-		        $.get("https://ankiweb.net/decks/",function( data ) {
+		        $.get("https://ankiweb.net/decks/", function(data) {
         		        framed.innerHTML=data;
 		
-        		        let decksLeft=getDecksWithCardsLeft(framed);
+        		        let deckData=getDecksWithCardsLeft(framed);
+				
+				chrome.storage.local.set({deckNames: deckData.deckNames}, function() {});
+        		        
+				let decksLeft=deckData.decksLeft;
 	
 	                	if(!decksLeft.length){ //All cards scheduled for today have been reviewed
                 	        	$("body").html("<div style='text-align: center;' class='vertical-center'><main class='container'><h1>Congratulations!</h1><hr><h3>All cards scheduled for today have been reviewed</h3></main></div>");
@@ -50,6 +68,11 @@ export default function rotateDeck(cb){ //Create an iframe of https://ankiweb.ne
                 		        });
 		                }
 	        	});
+		}
+	});
+	chrome.storage.local.get(["deckNames", "lastDeck"], function(result) {
+		if(result.deckNames[result.lastDeck]){
+			document.querySelector("#centerStudyMenu").innerText=result.deckNames[result.lastDeck];
 		}
 	});
 };
