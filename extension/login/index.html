@@ -12,14 +12,25 @@
   display: flex;
   align-items: center;
 }
+.center-text{
+	text-align:center;
+}
 </style>
 </head>
 <body>
 
 <div class="vertical-center">
 <div class="container">
-	For the extension to work properly, it is required that you log in on ankiweb.net, either through the following form or through <a href="https://ankiweb.net/account/login">ankiweb</a>
+	For the extension to work properly, it is required that you log in on ankiweb.net:
 	<hr>
+<div class="center-text">
+<p>
+	<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#loginForm" aria-expanded="false" aria-controls="loginForm">
+		Log in here using your ankiweb credentials
+	</button>
+</p>
+<div class="collapse" id="loginForm">
+<div class="card card-block">
 <form>
   <div class="form-group">
     <label for="password">Email address</label>
@@ -34,9 +45,20 @@
 </form>
 </div>
 </div>
+</div>
+<hr>
+<div class="center-text">
+	<strong>- OR -</strong>
+</div>
+<hr>
+<div class="center-text">
+	<a href="https://ankiweb.net/account/login"><button class="btn btn-primary">Log in through ankiweb</button></a>
+</div>
+</div>
+</div>
 
-<link rel="stylesheet" href="">
 <script src="../app/js/vendor/jquery.js"></script>
 <script src="./login.js"></script>
+<script src="../app/js/vendor/bootstrap.js"></script>
 </body>
 </html>
