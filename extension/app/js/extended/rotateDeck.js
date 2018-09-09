@@ -40,8 +40,8 @@ return {deckNames, decksLeft}
 
 var framed = document.createElement('div');
 
-export default function rotateDeck(cb){ //Create an iframe of https://ankiweb.net/decks/ and change the deck so the cookie gets changed
-        chrome.storage.local.get(["interleavingDisabled"], function(result) {
+export default function rotateDeck(cb, DOMchange=true){ //Create an iframe of https://ankiweb.net/decks/ and change the deck so the cookie gets changed
+        chrome.storage.local.get(["interleavingDisabled", "excludedDecks"], function(result) {
 		if(result.interleavingDisabled){
 			cb&&cb();
 		}
@@ -53,10 +53,12 @@ export default function rotateDeck(cb){ //Create an iframe of https://ankiweb.ne
 				
 				chrome.storage.local.set({deckNames: deckData.deckNames}, function() {});
         		        
-				let decksLeft=deckData.decksLeft;
+				let decksLeft=deckData.decksLeft.filter((id)=>result.excludedDecks.indexOf(id)==-1);
 	
 	                	if(!decksLeft.length){ //All cards scheduled for today have been reviewed
-                	        	$("body").html("<div style='text-align: center;' class='vertical-center'><main class='container'><h1>Congratulations!</h1><hr><h3>All cards scheduled for today have been reviewed</h3></main></div>");
+					if(DOMchange){
+						$("body").html("<div style='text-align: center;' class='vertical-center'><main class='container'><h1>Congratulations!</h1><hr><h3>All cards scheduled for today have been reviewed</h3></main></div>");
+					}
 		                }
 	        	        else{
                 		        chrome.storage.local.get(["lastDeck"], function(result) {
@@ -72,7 +74,10 @@ export default function rotateDeck(cb){ //Create an iframe of https://ankiweb.ne
 	});
 	chrome.storage.local.get(["deckNames", "lastDeck"], function(result) {
 		if(result.deckNames[result.lastDeck]){
-			document.querySelector("#centerStudyMenu").innerText=result.deckNames[result.lastDeck];
+			let centerStudyMenu=document.querySelector("#centerStudyMenu");
+			if(centerStudyMenu && DOMchange){
+				centerStudyMenu.innerText=result.deckNames[result.lastDeck];
+			}
 		}
 	});
 };
