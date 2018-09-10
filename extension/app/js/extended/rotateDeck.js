@@ -74,7 +74,7 @@ export default function rotateDeck(cb, DOMchange=true){ //Create an iframe of ht
 	});
 	chrome.storage.local.get(["deckNames", "lastDeck"], function(result) {
 		if(result.deckNames[result.lastDeck]){
-			let centerStudyMenu=document.querySelector("#centerStudyMenu");
+			let centerStudyMenu=document.querySelector("#deckName");
 			if(centerStudyMenu && DOMchange){
 				centerStudyMenu.innerText=result.deckNames[result.lastDeck];
 			}

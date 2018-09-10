@@ -1,126 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en">
+	<head>
+		<title>New Tab</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="../libs/bootstrap.css">
+		<link rel="stylesheet" href="./css/main.css">
+		<base href=".">
+	</head>
+	<body>
+		<div class="container">
+			<div class="deckName">
+				<span id="deckName"></span>
+			</div>
+			<div id="flashcardParent">
+				<div id="flashcard">
 
-    <title>New Tab</title>
-
-    <link rel="stylesheet" href="./css/vendor/bootstrap.css">
-
-    
-    <style>
-        .card img {
-            max-width: 95%;
-        }
-
-        .invisible {
-            display: none;
-        }
-
-        #leftStudyMenu {
-            float: left;
-        }
-
-        #rightStudyMenu {
-            float: right;
-            font-size: 16px;
-        }
-
-        #ansarea {
-            min-height: 6rem;
-            background: white;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        #ansarea-pad {
-            min-height: 6rem;
-        }
-
-        #quiz {
-            display: none;
-        }
-
-        #fulldesc {
-            display: none;
-        }
-
-        hr {
-            color: #eee;
-            background-color: #e1e1e1;
-            height: 1px;
-            border: 0;
-        }
-
-        #qa {
-            margin-top: 30px;
-        }
-
-        .card { border: 0; }
-
-        html { background: white !important; }
-
-	.vertical-center {
-		min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-		min-height: 100vh; /* These two lines are counted as one :-)       */
-
-		display: flex;
-		align-items: center;
-	}
-	main{
-		margin-top: 1rem;
-	}
-    </style>
-
-
-        <base href=".">
-
-    
-
-</head>
-<body>
-<main class="container">
-	<div class="row">
-		<div class="col">
-			<!--<span id="leftStudyMenu"></span>-->
+				</div>
+			</div>
 		</div>
-		<div class="col" style="text-align:center">
-			<span id="centerStudyMenu"></span>
+		<div class="container-fluid">
+			<div id="answerButtonsParent" class="row">
+				<div id="answerButtons" class="row">
+
+				</div>
+			</div>
 		</div>
-		<div class="col">
-			<!--<span id="rightStudyMenu"></span>-->
-		</div>
-	</div>
-<div id="quiz">
-    <div style="clear: both;" class="pt-1"></div>
 
-    <div id="qa_box" class="card">
-        <div id="qa">&nbsp;</div>
-        <br>
-    </div>
-    <div id="ansarea-pad"></div>
-    <div id="ansarea">
-        <div id="ansbut" class="invisible row justify-content-center">
-            <div class="col-auto">
-                <div class="pt-3"></div>
-                <button id="ansbuta" class="btn btn-primary btn-lg">Show Answer</button>
-            </div>
-        </div>
-        <div id="easebuts" class="invisible row justify-content-center">
-        </div>
-    </div>
-</div>
-
-<div class="form-group"></div>
-
-
-
-</main>
-
-<script src="./js/vendor/jquery.js" type="text/javascript"></script>
-<script src="./js/vendor/jquery.jplayer.js" type="text/javascript"></script>
-<script src="./js/main.js" type="module"></script>
-
-</body></html>
+		<script src="../libs/jquery.js"></script>
+		<script src="./js/main.js" type="module"></script>
+	</body>
+</html>

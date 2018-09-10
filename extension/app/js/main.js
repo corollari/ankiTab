@@ -1,5 +1,5 @@
-import study from "./extended/beta.js";
-import "./extended/keybindings.js";
+import startStudy from "./cards.js";
+//import "./extended/keybindings.js";
 
 document.querySelector("base").href="https://ankiuser.net/study/media/";
 
@@ -19,6 +19,6 @@ chrome.cookies.get({"url": "https://ankiweb.net", "name": "ankiweb"}, function(c
 			secure: cookie.secure,
 			httpOnly: cookie.httpOnly,
 		},
-		()=>study.initStudy());
+		()=>startStudy());
 	}
 });

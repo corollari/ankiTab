@@ -51,8 +51,7 @@ bash build.sh -i
 ```
 
 ## Credits
-The following external resources have been included as part of the project:
-- A modified version of the web app which powers [ankiuser.net](https://ankiuser.net/study/)
+The main icon used in the extension comes from [Open Iconic](https://useiconic.com/open).
 
 ## TO-DO
 - [ ] Add the option to use a local server powered by AnkiConnect as the back end instead of ankiweb.net/ankiuser.net
