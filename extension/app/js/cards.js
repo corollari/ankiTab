@@ -1,8 +1,9 @@
 import rotateDeck from "./extended/rotateDeck.js"
+import ankiConnectInvoke from "../../libs/ankiConnect.js"
 
 let jQuery=window.$;
 
-let cards=[];
+let card=[];
 let answers=[];
 let reviewStartTime;
 
@@ -12,43 +13,43 @@ const cardAnswer=2;
 const cardIntervals=5;
 const cardType=6;
 
-function getTime(){
-	return new Date().getTime();
-}
-
 function getCurrentCard(){
-	return cards[0];
+	return card;
 }
 
-function getCards(save=false){
-	return new Promise((resolve, reject)=>{
-		let answersEncoded=encodeURIComponent(JSON.stringify(answers));
-		let ts=getTime();
-		jQuery.post("https://ankiuser.net/study/getCards", "answers="+answersEncoded+(save?"&force=true":"")+"&ts="+ts, (res)=>{
-			if(!save){
-				cards=res.cards;
-				rotateDeck();
-			}
-			resolve();
+function getCard(){
+	return ankiConnectInvoke("guiCurrentCard").then(res=>{
+		card=res;
+		ankiConnectInvoke("getIntervals", {cards: res.cardId}).then(res=>{
+			card.intervals=processIntervals(res);
 		});
 	});
 }
 
-function save(){
-	return getCards(true);
+function processIntervals(interv){
+	return interv.map((u)=>{
+		if(u<=0)
+			return -u+'s';
+		else
+			return u+'d';
+	});
 }
 
 function replaceAudioTags(html){
 	return html.replace(/\[sound:([^\]]*)\]/, (match, filename)=>'<audio controls><source src="'+filename+'"></audio>');
 }
 
+function buildCardHTML(css, content){
+	return "<style>"+css+"</style>"+replaceAudioTags(content);
+}
+
 function renderQuestion(){
-	document.querySelector("#flashcard").innerHTML=replaceAudioTags(getCurrentCard()[cardQuestion]);
+	document.querySelector("#flashcard").innerHTML=buildCardHTML(getCurrentCard().css, getCurrentCard().question);
 	//Buttons
 	document.querySelector("#answerButtons").innerHTML='<button class="btn btn-primary btn-lg" id="showAnswerButton">Show Answer</button>';
 	document.querySelector("#showAnswerButton").addEventListener('click', ()=>renderAnswer());
-	document.querySelector("#flashcardParent").className="card card"+(getCurrentCard()[cardType]+1);
-	reviewStartTime=getTime();
+	//document.querySelector("#flashcardParent").className="card card"+(getCurrentCard()[cardType]+1);
+	//reviewStartTime=getTime();
 	document.addEventListener('keyup', keyboardShowAnswer);
 }
 
@@ -58,10 +59,10 @@ function keyboardShowAnswer(e){
 
 function renderAnswer(){
 	document.removeEventListener('keyup', keyboardShowAnswer);
-	document.querySelector("#flashcard").innerHTML=replaceAudioTags(getCurrentCard()[cardAnswer]);
+	document.querySelector("#flashcard").innerHTML=buildCardHTML(getCurrentCard().css, getCurrentCard().answer);
 	//Buttons
 	document.querySelector("#answerButtons").innerHTML='';
-	let intervals=getCurrentCard()[cardIntervals];
+	let intervals=getCurrentCard().intervals;
 	let btnNames=["Again", "Good"]
 	if(intervals.length>=3){
 		btnNames.push("Easy");
@@ -74,9 +75,9 @@ function renderAnswer(){
 	});
 	btnNames.forEach((btn, i)=>{
 		document.querySelector("#btn"+i).addEventListener('click', ()=>answerQuestion(i+1));
-		document.addEventListener('keyup', keyboardAnswer);
 	});
-
+	document.addEventListener('keyup', keyboardAnswer);
+	ankiConnectInvoke("guiShowAnswer");
 }
 
 function keyboardAnswer(e){
@@ -89,28 +90,19 @@ function keyboardAnswer(e){
 
 function answerQuestion(answer){
 	document.removeEventListener('keyup', keyboardAnswer);
-	answers.push([getCurrentCard()[cardID], answer, getTime()-reviewStartTime]);
-	cards.shift();
-	chrome.storage.local.get(["interleavingTrigger", "interleavingDisabled"], function(result) {
-		if(!result.interleavingDisabled){
-			while(cards.length>=Number(result.interleavingTrigger)){
-				cards.pop();
-			}
-		}
-
-		if(cards.length){
-			save();
-			renderQuestion();
-		}else{
-			getCards().then(renderQuestion);
-		}
+	ankiConnectInvoke("guiAnswerCard", {ease:answer}).then(()=>{
+		rotateDeck().then(getCard).then(renderQuestion);
 	});
 }
 
 function start(){
-	getCards().then(renderQuestion);
+	getCard().then(()=>{
+		if(card==null){
+			rotateDeck().then(start);
+		} else {
+			renderQuestion();
+		}
+	});
 }
 
 export default start;
-
-//TODO: Support AnkiConnect features

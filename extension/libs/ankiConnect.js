@@ -1,5 +1,6 @@
-function ankiConnectInvoke(action, params={}, cb) {
+function ankiConnectInvoke(action, params={}) {
 	const version = 6;
+	return new Promise((resolve, reject)=>{
         const xhr = new XMLHttpRequest();
         xhr.addEventListener('error', () => reject('failed to connect to AnkiConnect'));
         xhr.addEventListener('load', () => {
@@ -9,7 +10,7 @@ function ankiConnectInvoke(action, params={}, cb) {
                     throw response.error;
                 } else {
                     if (response.hasOwnProperty('result')) {
-                        cb();
+                        resolve(response.result);
                     } else {
                         console.log('failed to get results from AnkiConnect');
                     }
@@ -20,6 +21,7 @@ function ankiConnectInvoke(action, params={}, cb) {
         });
         xhr.open('POST', 'http://127.0.0.1:8765');
         xhr.send(JSON.stringify({action, version, params}));
+	});
 }
 
 export default ankiConnectInvoke;
