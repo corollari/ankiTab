@@ -16,7 +16,8 @@ function ankiConnectInvoke(action, params={}) {
                     }
                 }
             } catch (e) {
-                console.log(e);
+                console.error(e);
+                reject(e);
             }
         });
         xhr.open('POST', 'http://127.0.0.1:8765');

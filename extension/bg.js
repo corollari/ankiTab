@@ -2,14 +2,16 @@ chrome.browserAction.onClicked.addListener(function (tab) { //Fired when the use
       chrome.tabs.create({ url: "about://newtab" });
       //chrome.tabs.create({ url: "app/index.html" });
 });
+
 chrome.runtime.onInstalled.addListener(function() {
 	let defaults={
-		interleavingTrigger: 2, 
+		interleavingTrigger: 1, 
 		lastDeck:"", 
 		interleavingDisabled:false, 
 		betaEnabled:false, 
-		deckNames:{}, 
-		excludedDecks:[]
+		deckNames:[], 
+		excludedDecks:[],
+		emptyDecks:[]
 	};
 	chrome.storage.local.get(Object.keys(defaults), function(result) {
 		for(let s in result){

@@ -1,4 +1,5 @@
 import rotateDeck from "./extended/rotateDeck.js"
+import MIME from "./mimeTypes.js"
 import ankiConnectInvoke from "../../libs/ankiConnect.js"
 
 let jQuery=window.$;
@@ -38,7 +39,12 @@ function processIntervals(interv){
 }
 
 function replaceAudioTags(html){
-	return html.replace(/\[sound:([^\]]*)\]/, (match, filename)=>'<audio controls><source src="'+filename+'"></audio>');
+	return html.replace(/\[sound:([^\]]*)\]/, (match, filename)=>{
+		let mediaType="audio"
+		if(MIME['.'+filename.split('.').pop()].split('/')[0]=="video")
+			mediaType="video"
+		return '<'+mediaType+' controls src="'+filename+'"></'+mediaType+'>'
+	});
 }
 
 function buildCardHTML(css, content){
@@ -48,8 +54,9 @@ function buildCardHTML(css, content){
 function retrieveMedia(){
 	document.querySelector("#flashcard").querySelectorAll("[src]").forEach((elem)=>{
 		let filename=elem.src.split('/').pop()
-		ankiConnectInvoke("retrieveMediaFile", {filename:filename}).then((data)=>
-			elem.src="data:image/"+filename.split('.').pop()+";base64,"+data
+		let fileExtension='.'+filename.split('.').pop()
+		ankiConnectInvoke("retrieveMediaFile", {filename:decodeURIComponent(filename)}).then((data)=>
+			elem.src="data:"+MIME[fileExtension]+";base64,"+data
 		)
 	});
 }

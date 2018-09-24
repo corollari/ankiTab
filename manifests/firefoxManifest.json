@@ -22,16 +22,7 @@
 	"permissions": [
 		"activeTab",
 		"storage",
-		"cookies",
-		"https://ankiuser.net/*",
-		"https://ankiweb.net/*"
-	],
-	"optional_permissions": [ "https://127.0.0.1:8765/" ],
-	"content_scripts": [
-		{
-			"matches": ["https://ankiweb.net/decks/"],
-			"js": ["contentScripts/ankiweb_decks.js"]
-		}
+	       	"https://127.0.0.1:8765/"
 	],
 	"chrome_url_overrides" : {
 		"newtab": "app/index.html"

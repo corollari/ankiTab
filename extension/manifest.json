@@ -3,6 +3,7 @@
 	"version": "0.3.5",
 	"description": "Replace new tab page with Anki flashcards",
 	"manifest_version": 2,
+	"incognito": "split",
 	"background":{
 		"scripts":["bg.js"]
         },
@@ -22,22 +23,10 @@
 	"permissions": [
 		"activeTab",
 		"storage",
-		"cookies",
-		"https://ankiuser.net/*",
-		"https://ankiweb.net/*"
-	],
-	"optional_permissions": [ "https://127.0.0.1:8765/" ],
-	"content_scripts": [
-		{
-			"matches": ["https://ankiweb.net/decks/"],
-			"js": ["contentScripts/ankiweb_decks.js"]
-		}
+	       	"https://127.0.0.1:8765/"
 	],
 	"chrome_url_overrides" : {
 		"newtab": "app/index.html"
 	},
-	"options_ui": {
-		"page":  "options/index.html",
-		"browser_style": true
-	}
+	"options_page": "options/index.html"
 }
