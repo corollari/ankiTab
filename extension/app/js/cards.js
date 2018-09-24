@@ -2,8 +2,6 @@ import rotateDeck from "./extended/rotateDeck.js"
 import MIME from "./mimeTypes.js"
 import ankiConnectInvoke from "../../libs/ankiConnect.js"
 
-let jQuery=window.$;
-
 let card;
 
 function getCurrentCard(){
