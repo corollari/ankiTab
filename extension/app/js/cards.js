@@ -3,27 +3,29 @@ import ankiConnectInvoke from "../../libs/ankiConnect.js"
 
 let jQuery=window.$;
 
-let card=[];
-let answers=[];
-let reviewStartTime;
-
-const cardID=0;
-const cardQuestion=1;
-const cardAnswer=2;
-const cardIntervals=5;
-const cardType=6;
+let card;
 
 function getCurrentCard(){
 	return card;
 }
 
 function getCard(){
-	return ankiConnectInvoke("guiCurrentCard").then(res=>{
-		card=res;
-		ankiConnectInvoke("getIntervals", {cards: res.cardId}).then(res=>{
-			card.intervals=processIntervals(res);
+	return ankiConnectInvoke("guiCurrentCard")
+		.then(res=>{
+			card=res;
+			/*ankiConnectInvoke("getIntervals", {cards: [res.cardId], complete:true}).then(res=>{
+				card.intervals=processIntervals(res);
+			});*/
+		}, (e)=>{
+			return new Promise((resolve, reject)=>{
+				chrome.storage.local.get(["lastDeck", "emptyDecks"], function(result) {
+					result.emptyDecks.push({name: result.lastDeck, date:new Date()});
+					chrome.storage.local.set({emptyDecks: result.emptyDecks}, ()=>
+						rotateDeck().then(getCard).then(resolve)
+					);
+				});
+			});
 		});
-	});
 }
 
 function processIntervals(interv){
@@ -43,8 +45,20 @@ function buildCardHTML(css, content){
 	return "<style>"+css+"</style>"+replaceAudioTags(content);
 }
 
+function retrieveMedia(){
+	document.querySelector("#flashcard").querySelectorAll("[src]").forEach((elem)=>{
+		let filename=elem.src.split('/').pop()
+		ankiConnectInvoke("retrieveMediaFile", {filename:filename}).then((data)=>
+			elem.src="data:image/"+filename.split('.').pop()+";base64,"+data
+		)
+	});
+}
+
+
 function renderQuestion(){
 	document.querySelector("#flashcard").innerHTML=buildCardHTML(getCurrentCard().css, getCurrentCard().question);
+	retrieveMedia();
+	document.querySelector("#deckName").innerText=getCurrentCard().deckName;
 	//Buttons
 	document.querySelector("#answerButtons").innerHTML='<button class="btn btn-primary btn-lg" id="showAnswerButton">Show Answer</button>';
 	document.querySelector("#showAnswerButton").addEventListener('click', ()=>renderAnswer());
@@ -60,9 +74,10 @@ function keyboardShowAnswer(e){
 function renderAnswer(){
 	document.removeEventListener('keyup', keyboardShowAnswer);
 	document.querySelector("#flashcard").innerHTML=buildCardHTML(getCurrentCard().css, getCurrentCard().answer);
+	retrieveMedia();
 	//Buttons
 	document.querySelector("#answerButtons").innerHTML='';
-	let intervals=getCurrentCard().intervals;
+	let intervals=getCurrentCard().buttons;
 	let btnNames=["Again", "Good"]
 	if(intervals.length>=3){
 		btnNames.push("Easy");
@@ -71,7 +86,7 @@ function renderAnswer(){
 		btnNames.splice(1, 0, "Hard");
 	}
 	btnNames.forEach((btn, i)=>{
-		document.querySelector("#answerButtons").innerHTML+='<div><span class="interval">'+intervals[i]+'</span><button class="btn btn-secondary btn-lg" id="btn'+i+'">'+btn+'</button></div>';
+		document.querySelector("#answerButtons").innerHTML+='<div><span class="interval"></span><button class="btn btn-secondary btn-lg" id="btn'+i+'">'+btn+'</button></div>';
 	});
 	btnNames.forEach((btn, i)=>{
 		document.querySelector("#btn"+i).addEventListener('click', ()=>answerQuestion(i+1));
@@ -82,7 +97,7 @@ function renderAnswer(){
 
 function keyboardAnswer(e){
 	let num=Number(e.key);
-	if(Number.isInteger(num) && num<=getCurrentCard()[cardIntervals].length && num>0){
+	if(Number.isInteger(num) && num<=getCurrentCard().buttons.length && num>0){
 		answerQuestion(num);
 	}
 }
@@ -96,13 +111,7 @@ function answerQuestion(answer){
 }
 
 function start(){
-	getCard().then(()=>{
-		if(card==null){
-			rotateDeck().then(start);
-		} else {
-			renderQuestion();
-		}
-	});
+	rotateDeck().then(getCard).then(renderQuestion);
 }
 
 export default start;
