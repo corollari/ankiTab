@@ -2,7 +2,10 @@ function ankiConnectInvoke(action, params={}) {
 	const version = 6;
 	return new Promise((resolve, reject)=>{
         const xhr = new XMLHttpRequest();
-        xhr.addEventListener('error', () => reject('failed to connect to AnkiConnect'));
+        xhr.addEventListener('error', () => {
+		document.querySelector("#flashcard").innerHTML='<div class="alert alert-danger" role="alert">Make sure that anki is running and <a href="https://ankiweb.net/shared/info/2055492159" class="alert-link">ankiConnect</a> is installed.</div>';
+		reject('failed to connect to AnkiConnect')
+	});
         xhr.addEventListener('load', () => {
             try {
                 const response = JSON.parse(xhr.responseText);

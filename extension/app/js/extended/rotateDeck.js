@@ -24,7 +24,6 @@ export default function rotateDeck(DOMchange=true){
 					ankiConnectInvoke("guiDeckReview", {name: lastDeck})
 						.then(()=>chrome.storage.local.set({lastDeck: lastDeck}, resolve))
 						.catch((e)=>{
-							document.querySelector("#flashcard").innerHTML='<div class="alert alert-danger" role="alert">Make sure that anki is running and <a href="https://ankiweb.net/shared/info/2055492159" class="alert-link">ankiConnect</a> is installed.</div>';
 							window.location.href="chrome-search://local-ntp/local-ntp.html"
 						});
 				}
