@@ -110,6 +110,8 @@ function keyboardAnswer(e){
 
 function answerQuestion(answer){
 	document.removeEventListener('keyup', keyboardAnswer);
+	document.querySelector("#flashcard").innerHTML='';
+	document.querySelector("#deckName").innerText='';
 	ankiConnectInvoke("guiAnswerCard", {ease:answer}).then(()=>{
 		rotateDeck().then(getCard).then(renderQuestion);
 	});
