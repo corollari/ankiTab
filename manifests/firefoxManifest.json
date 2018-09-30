@@ -23,6 +23,8 @@
 		"activeTab",
 		"storage",
 		"cookies",
+		"webRequest",
+		"webRequestBlocking",
 		"https://ankiuser.net/*",
 		"https://ankiweb.net/*"
 	],

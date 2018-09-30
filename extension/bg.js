@@ -18,3 +18,17 @@ chrome.runtime.onInstalled.addListener(function() {
 		chrome.storage.local.set(defaults, function() {}); //Set missing default values
 	});
 });
+chrome.webRequest.onBeforeSendHeaders.addListener(
+        function(details) {
+          for (var i = 0; i < details.requestHeaders.length; ++i) {
+		  console.log(details.requestHeaders[i].name);
+            if (details.requestHeaders[i].name === 'Origin') {
+              details.requestHeaders.splice(i, 1);
+              break;
+            }
+          }
+          return {requestHeaders: details.requestHeaders};
+        },
+        {urls: ["<all_urls>"]},
+        ["blocking", "requestHeaders"]
+);
