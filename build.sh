@@ -21,7 +21,7 @@ while getopts "ifc" opt; do
       ;;
   esac
 done
-cp manifests/chromeManifest.json extension/manifest.json
-(cd extension && zip -r ../chrome.zip .)
 cp manifests/firefoxManifest.json extension/manifest.json
 (cd extension && zip -r ../firefox.zip .)
+cp manifests/chromeManifest.json extension/manifest.json
+(cd extension && zip -r ../chrome.zip .)
