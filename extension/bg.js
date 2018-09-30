@@ -20,3 +20,5 @@ chrome.runtime.onInstalled.addListener(function() {
 		chrome.storage.local.set(defaults, function() {}); //Set missing default values
 	});
 });
+
+chrome.runtime.setUninstallURL("https://goo.gl/forms/QsvZzGcRfQTPZ66E2");
