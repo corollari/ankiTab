@@ -3,7 +3,7 @@ function ankiConnectInvoke(action, params={}) {
 	return new Promise((resolve, reject)=>{
         const xhr = new XMLHttpRequest();
         xhr.addEventListener('error', () => {
-		document.querySelector("#flashcard").innerHTML='<div class="alert alert-danger" role="alert">Make sure that anki is running and <a href="https://ankiweb.net/shared/info/2055492159" class="alert-link">ankiConnect</a> is installed.</div>';
+		document.querySelector("#flashcard").innerHTML='<div class="alert alert-danger" role="alert">Make sure that anki is running and <a href="https://ankiweb.net/shared/info/2055492159" class="alert-link">ankiConnect</a> is installed.<br><strong>Why can\'t ankiTab just keep working the way it was?</strong> dae, the creator of anki, has forbiden the use of ankiweb for ankiTab.</div>';
 		reject('failed to connect to AnkiConnect')
 	});
         xhr.addEventListener('load', () => {
