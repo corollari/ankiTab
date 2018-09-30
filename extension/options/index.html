@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
 }
-.alert{
+.hidden{
 	opacity:0;
 }
 </style>
@@ -22,16 +22,16 @@
 
 <div class="vertical-center">
 <div class="container">
-	<div class="alert alert-success" role="alert">
+	<div class="alert alert-success hidden" role="alert">
 		<strong>Success!</strong> All settings have been saved.
 	</div>
 <form id="optionsForm">
 	<h4>Interleaving</h4>
-  <div class="form-group">
+  <!--<div class="form-group">
   <label for="interleavingTrigger">Size of card batches from each deck</label>
     <input type="number" class="form-control save" id="interleavingTrigger" max="5" min="1">
     <small id="emailHelp" class="form-text text-muted">Number of cards from each deck that will be shown before triggering a deck change (interleaving)</small>
-  </div>
+  </div>-->
   <div class="form-check">
     <label class="form-check-label" for="interleavingDisabled">
       <input type="checkbox" class="form-check-input save" id="interleavingDisabled">
@@ -39,26 +39,16 @@
     </label>
   </div>
   <hr>
-  <h4>AnkiConnect (Beta)</h4>
-  The following list of beta features, which <strong>require running Anki with <a href="https://ankiweb.net/shared/info/2055492159">AnkiConnect</a> installed</strong> to work, are still getting polished and might have a few rough edges:
-  <ul>
-	  <li>Suspend card button</li>
-  </ul>
-  <div class="form-check">
-    <label class="form-check-label" for="betaEnabled">
-      <input type="checkbox" class="form-check-input save" id="betaEnabled">
-      Enable beta features
-    </label>
-  </div>
-  <hr>
   <h4>Decks</h4>
+  <div class="alert alert-warning" role="alert">
+	  If both a parent and its subdecks are enabled it's possible that you are shown several cards from the same deck repeatedly when reviewing. To solve this just disable the parent deck while leaving the subdecks enabled.
+  </div>
   <div id="decks">
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
-<div class="text-center">
-        <a href="mailto:ankitab@albert.sh">Contact the developer</a>
-</div>
+<br>
+<strong>Issues and feature requests</strong>: Send an email to the developer (<a href="mailto:ankitab@albert.sh">ankitab@albert.sh</a>)
 </div>
 </div>
 
