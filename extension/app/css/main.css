@@ -23,6 +23,11 @@
         text-align:center;
         padding:0.5rem;
 }
+#optionsBtn{
+	position:absolute;
+        padding:0.5rem;
+	right:0;
+}
 .vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
