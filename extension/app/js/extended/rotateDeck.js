@@ -9,7 +9,10 @@ export default function rotateDeck(DOMchange=true){
 				resolve();
 			}
 			else{
-				let emptyDeckNames=result.emptyDecks.map((d)=>d.name);
+				let now=Date.now();
+				let newEmptyDecks = result.emptyDecks.filter((deck)=>Math.abs(now-deck.date)<checkEmptyDelay);
+				chrome.storage.local.set({emptyDecks: newEmptyDecks});
+				let emptyDeckNames=newEmptyDecks.map((d)=>d.name);
 				if(!result.deckNames.length){
 					result.deckNames = await ankiConnectInvoke("deckNames");
 				}
@@ -27,9 +30,6 @@ export default function rotateDeck(DOMchange=true){
 							window.location.href="chrome-search://local-ntp/local-ntp.html"
 						});
 				}
-				let now=new Date();
-				result.emptyDecks.filter((deck)=>Math.abs(now-deck.date)<checkEmptyDelay);
-				chrome.storage.local.set({emptyDecks: result.emptyDecks});
 			}
 		});
 		ankiConnectInvoke("deckNames").then((decks)=>chrome.storage.local.set({deckNames: decks}));

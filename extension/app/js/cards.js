@@ -18,7 +18,7 @@ function getCard(){
 		}, (e)=>{
 			return new Promise((resolve, reject)=>{
 				chrome.storage.local.get(["lastDeck", "emptyDecks"], function(result) {
-					result.emptyDecks.push({name: result.lastDeck, date:new Date()});
+					result.emptyDecks.push({name: result.lastDeck, date:Date.now()});
 					chrome.storage.local.set({emptyDecks: result.emptyDecks}, ()=>
 						rotateDeck().then(getCard).then(resolve)
 					);
