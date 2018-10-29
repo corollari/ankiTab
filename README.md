@@ -1,4 +1,5 @@
 [link-cws]: https://chrome.google.com/webstore/detail/ankitab/ihoaepdiibjbifnhcjoaddgcnfgjmjdk "Version published on Chrome Web Store"
+[link-amo]: https://addons.mozilla.org/en-US/firefox/addon/ankitab/ "Version published on Mozilla Add-ons"
 
 <h1 align="center">
   <img src="https://raw.githubusercontent.com/corollari/ankiTab/master/promo/icon.png" width="64"></a>
@@ -21,7 +22,7 @@
 
 ## Install
 - [**Chrome** extension][link-cws] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/ihoaepdiibjbifnhcjoaddgcnfgjmjdk.svg?label=%20">][link-cws]
-- **Firefox** add-on: The extension works for Firefox but it's been pulled from Mozilla's Add-on Repository (AMO). See [#3](https://github.com/corollari/ankiTab/issues/3) for more details.
+- [**Firefox** add-on][link-amo] [<img valign="middle" src="https://img.shields.io/amo/v/ankitab.svg?label=%20">][link-amo]
 
 ## Build
 ##### Setup:
