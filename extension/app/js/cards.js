@@ -113,6 +113,7 @@ function answerQuestion(answer){
 	document.querySelector("#flashcard").innerHTML='';
 	document.querySelector("#deckName").innerText='';
 	ankiConnectInvoke("guiAnswerCard", {ease:answer}).then(()=>{
+		chrome.tabs.update({url:"chrome-search://local-ntp/local-ntp.html"});
 		rotateDeck().then(getCard).then(renderQuestion);
 	});
 }
