@@ -57,7 +57,7 @@ function getValue(elem){
 
 ankiConnectInvoke("deckNames").then((decks)=>{
 	chrome.storage.local.get(["excludedDecks"], function(result) {
-		decks.forEach((d)=>{
+		decks.sort().forEach((d)=>{
 			let name=d.split("::").map((d, i, a)=>i==a.length-1?d:"&nbsp;&nbsp;&nbsp;").join('');
 			document.querySelector("#decks").innerHTML+=('<div class="form-check"><label class="form-check-label" for="'+d+'"><input type="checkbox" class="form-check-input deck" id="'+d+'" ' + (result.excludedDecks.indexOf(d)==-1?'checked':'') +'> '+name+'</label></div>');
 		});
