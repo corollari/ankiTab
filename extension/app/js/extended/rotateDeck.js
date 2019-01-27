@@ -25,10 +25,7 @@ export default function rotateDeck(DOMchange=true){
 				else{
 					let lastDeck=decksLeft.sort().filter((d)=>d>result.lastDeck).shift() || decksLeft[0];
 					ankiConnectInvoke("guiDeckReview", {name: lastDeck})
-						.then(()=>chrome.storage.local.set({lastDeck: lastDeck}, resolve))
-						.catch((e)=>{
-							window.location.href="chrome-search://local-ntp/local-ntp.html"
-						});
+						.then(()=>chrome.storage.local.set({lastDeck: lastDeck}, resolve));
 				}
 			}
 		});
