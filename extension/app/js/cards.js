@@ -36,12 +36,14 @@ function processIntervals(interv){
 	});
 }
 
-function replaceAudioTags(html){
-	return html.replace(/\[sound:([^\]]*)\]/, (match, filename)=>{
-		let mediaType="audio"
-		if(MIME['.'+filename.split('.').pop()].split('/')[0]=="video")
-			mediaType="video"
-		return '<'+mediaType+' controls src="'+filename+'"></'+mediaType+'>'
+function replaceAudioTags(html) {
+	return html.replace(/\[sound:([^\]]*)\]/, (match, filename) => {
+		let mediaType = "audio";
+		let extension = '.' + filename.split('.').pop();
+		let mimeType = (MIME[extension] || "").split('/')[0];
+		if (mimeType == "video")
+			mediaType = "video";
+		return '<' + mediaType + ' controls src="' + filename + '"></' + mediaType + '>';
 	});
 }
 
