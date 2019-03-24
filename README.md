@@ -55,7 +55,7 @@ bash build.sh -i
 The main icon used in the extension comes from [Open Iconic](https://useiconic.com/open).
 
 ## TO-DO
-- [ ] Add the option to use a local server powered by AnkiConnect as the back end instead of ankiweb.net/ankiuser.net
+- [ ] Use a standalone web version of Anki instead of relying on AnkiConnect
 
 ## License
 The Unlicense
