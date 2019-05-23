@@ -72,6 +72,7 @@ function renderQuestion(){
 	//document.querySelector("#flashcardParent").className="card card"+(getCurrentCard()[cardType]+1);
 	//reviewStartTime=getTime();
 	document.addEventListener('keyup', keyboardShowAnswer);
+	MathJax.Hub.Typeset();
 }
 
 function keyboardShowAnswer(e){
@@ -99,6 +100,7 @@ function renderAnswer(){
 		document.querySelector("#btn"+i).addEventListener('click', ()=>answerQuestion(i+1));
 	});
 	document.addEventListener('keyup', keyboardAnswer);
+	MathJax.Hub.Typeset();
 	ankiConnectInvoke("guiShowAnswer");
 }
 
