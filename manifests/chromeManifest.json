@@ -23,10 +23,16 @@
 	"permissions": [
 		"activeTab",
 		"storage",
-	       	"https://127.0.0.1:8765/"
+		"https://127.0.0.1:8765/"
 	],
 	"chrome_url_overrides" : {
 		"newtab": "app/index.html"
 	},
-	"options_page": "options/index.html"
+	"options_page": "options/index.html",
+	"sandbox": {
+		"pages": [
+			"app/sandbox.html",
+			"app/js/sandbox.js"
+		]
+	}
 }
