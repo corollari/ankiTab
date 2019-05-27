@@ -63,8 +63,17 @@ function retrieveMedia(){
 
 
 function renderQuestion(){
+	// First build the question under an invisible <div>, which makes it
+	// easier to update the HTML of the question, since we can call
+	// AnkiConnect from outside the sandbox and update the HTML according
+	// to the responses.
 	document.querySelector("#flashcard").innerHTML=buildCardHTML(getCurrentCard().css, getCurrentCard().question);
 	retrieveMedia();
+	// Now render the question's HTML in the sandbox. This will make it
+	// possible to run JavaScript on the cards.
+	document.querySelector("#flashcardSandbox").contentWindow.postMessage({
+		'command': 'render', 'html': document.querySelector("#flashcard").innerHTML
+	}, '*');
 	document.querySelector("#deckName").innerText=getCurrentCard().deckName;
 	//Buttons
 	document.querySelector("#answerButtons").innerHTML='<button class="btn btn-primary btn-lg" id="showAnswerButton">Show Answer</button>';
@@ -81,8 +90,17 @@ function keyboardShowAnswer(e){
 
 function renderAnswer(){
 	document.removeEventListener('keyup', keyboardShowAnswer);
+	// First build the answer under an invisible <div>, which makes it
+	// easier to update the HTML of the answer, since we can call
+	// AnkiConnect from outside the sandbox and update the HTML according
+	// to the responses.
 	document.querySelector("#flashcard").innerHTML=buildCardHTML(getCurrentCard().css, getCurrentCard().answer);
 	retrieveMedia();
+	// Now render the answer's HTML in the sandbox. This will make it
+	// possible to run JavaScript on the cards.
+	document.querySelector("#flashcardSandbox").contentWindow.postMessage({
+		'command': 'render', 'html': document.querySelector("#flashcard").innerHTML
+	}, '*');
 	//Buttons
 	document.querySelector("#answerButtons").innerHTML='';
 	let intervals=getCurrentCard().buttons;
@@ -115,6 +133,9 @@ function keyboardAnswer(e){
 function answerQuestion(answer){
 	document.removeEventListener('keyup', keyboardAnswer);
 	document.querySelector("#flashcard").innerHTML='';
+	document.querySelector("#flashcardSandbox").contentWindow.postMessage({
+		'command': 'render', 'html': document.querySelector("#flashcard").innerHTML
+	}, '*');
 	document.querySelector("#deckName").innerText='';
 	ankiConnectInvoke("guiAnswerCard", {ease:answer}).then(()=>{
 		rotateDeck().then(getCard).then(renderQuestion);
