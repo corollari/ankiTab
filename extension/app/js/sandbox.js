@@ -22,8 +22,7 @@ window.addEventListener('message', async function(event) {
         break;
     case 'replaceMedia':
         await window.mutex;
-        document.querySelectorAll(`[src="${event.data.oldSrc}"]`).forEach(async (elem)=>{
-          console.log(elem);
+        document.querySelectorAll(`[src="${decodeURI(event.data.oldSrc)}"]`).forEach(async (elem)=>{
           elem.src = event.data.newSrc
         });
     }
