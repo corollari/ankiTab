@@ -15,7 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.querySelector('#interleavingDisabled').addEventListener('input', ()=>{
 		document.querySelector("#interleavingTrigger").disabled=document.querySelector("#interleavingDisabled").checked;
 	});
+  document.querySelector('#tickall').addEventListener('click', (e)=>tickAll(true, e));
+  document.querySelector('#untickall').addEventListener('click', (e)=>tickAll(false, e));
 });
+
+function tickAll(value, e){
+  document.querySelectorAll(".deck").forEach((elem)=>elem.checked=value);
+  e.preventDefault();
+}
 
 function saved(e){
 	e.preventDefault();
