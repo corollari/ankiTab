@@ -23,7 +23,7 @@
 	"permissions": [
 		"activeTab",
 		"storage",
-		"https://127.0.0.1:8765/"
+		"http://localhost:8765/"
 	],
 	"chrome_url_overrides" : {
 		"newtab": "app/index.html"
