@@ -55,9 +55,12 @@ function retrieveMedia(){
 	document.querySelector("#flashcard").querySelectorAll("[src]").forEach((elem)=>{
 		let filename=elem.src.split('/').pop()
 		let fileExtension='.'+filename.split('.').pop()
-		ankiConnectInvoke("retrieveMediaFile", {filename:decodeURIComponent(filename)}).then((data)=>
-			elem.src="data:"+MIME[fileExtension]+";base64,"+data
-		)
+		ankiConnectInvoke("retrieveMediaFile", {filename:decodeURIComponent(filename)}).then((data)=>{
+      let newSrc = "data:"+MIME[fileExtension]+";base64,"+data;
+      document.querySelector("#flashcardSandbox").contentWindow.postMessage({
+        'command': 'replaceMedia', 'oldSrc': filename, newSrc
+      }, '*');
+    })
 	});
 }
 
@@ -68,12 +71,12 @@ function renderQuestion(){
 	// AnkiConnect from outside the sandbox and update the HTML according
 	// to the responses.
 	document.querySelector("#flashcard").innerHTML=buildCardHTML(getCurrentCard().css, getCurrentCard().question);
-	retrieveMedia();
 	// Now render the question's HTML in the sandbox. This will make it
 	// possible to run JavaScript on the cards.
 	document.querySelector("#flashcardSandbox").contentWindow.postMessage({
 		'command': 'render', 'html': document.querySelector("#flashcard").innerHTML
 	}, '*');
+	retrieveMedia();
 	document.querySelector("#deckName").innerText=getCurrentCard().deckName;
 	//Buttons
 	document.querySelector("#answerButtons").innerHTML='<button class="btn btn-primary btn-lg" id="showAnswerButton">Show Answer</button>';
@@ -81,7 +84,6 @@ function renderQuestion(){
 	//document.querySelector("#flashcardParent").className="card card"+(getCurrentCard()[cardType]+1);
 	//reviewStartTime=getTime();
 	document.addEventListener('keyup', keyboardShowAnswer);
-	MathJax.Hub.Typeset();
 }
 
 function keyboardShowAnswer(e){
@@ -95,12 +97,12 @@ function renderAnswer(){
 	// AnkiConnect from outside the sandbox and update the HTML according
 	// to the responses.
 	document.querySelector("#flashcard").innerHTML=buildCardHTML(getCurrentCard().css, getCurrentCard().answer);
-	retrieveMedia();
 	// Now render the answer's HTML in the sandbox. This will make it
 	// possible to run JavaScript on the cards.
 	document.querySelector("#flashcardSandbox").contentWindow.postMessage({
 		'command': 'render', 'html': document.querySelector("#flashcard").innerHTML
 	}, '*');
+	retrieveMedia();
 	//Buttons
 	document.querySelector("#answerButtons").innerHTML='';
 	let intervals=getCurrentCard().buttons;
@@ -118,7 +120,6 @@ function renderAnswer(){
 		document.querySelector("#btn"+i).addEventListener('click', ()=>answerQuestion(i+1));
 	});
 	document.addEventListener('keyup', keyboardAnswer);
-	MathJax.Hub.Typeset();
 	ankiConnectInvoke("guiShowAnswer");
 }
 
@@ -136,6 +137,7 @@ function answerQuestion(answer){
 	document.querySelector("#flashcardSandbox").contentWindow.postMessage({
 		'command': 'render', 'html': document.querySelector("#flashcard").innerHTML
 	}, '*');
+	retrieveMedia();
 	document.querySelector("#deckName").innerText='';
 	ankiConnectInvoke("guiAnswerCard", {ease:answer}).then(()=>{
 		rotateDeck().then(getCard).then(renderQuestion);
