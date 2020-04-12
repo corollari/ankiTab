@@ -11,7 +11,10 @@ function getCurrentCard(){
 function getCard(){
 	return ankiConnectInvoke("guiCurrentCard")
 		.then(res=>{
-			card=res;
+			if(typeof res.question !== "string"){
+				res.question = res.question[0];
+			}
+			card = res;
 			/*ankiConnectInvoke("getIntervals", {cards: [res.cardId], complete:true}).then(res=>{
 				card.intervals=processIntervals(res);
 			});*/
