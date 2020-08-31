@@ -22,7 +22,7 @@
 
 ## Install
 - [**Chrome** extension][link-cws] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/ihoaepdiibjbifnhcjoaddgcnfgjmjdk.svg?label=%20">][link-cws]
-- [**Firefox** add-on][link-amo] [<img valign="middle" src="https://img.shields.io/amo/v/ankitab.svg?label=%20">][link-amo]
+- [**Firefox** add-on](https://github.com/corollari/ankiTab/issues/3)
 
 ## Build
 ##### Setup:
