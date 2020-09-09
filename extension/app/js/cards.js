@@ -82,7 +82,7 @@ function renderQuestion(){
 	retrieveMedia();
 	document.querySelector("#deckName").innerText=getCurrentCard().deckName;
 	//Buttons
-	document.querySelector("#answerButtons").innerHTML='<button class="btn btn-primary btn-lg" id="showAnswerButton">Show Answer</button>';
+	document.querySelector("#answerButtons").innerHTML='<button class="btn btn-primary btn-lg" id="showAnswerButton" title="Space">Show Answer</button>';
 	document.querySelector("#showAnswerButton").addEventListener('click', ()=>renderAnswer());
 	//document.querySelector("#flashcardParent").className="card card"+(getCurrentCard()[cardType]+1);
 	//reviewStartTime=getTime();

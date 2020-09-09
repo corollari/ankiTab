@@ -5,7 +5,7 @@
         position:fixed;
         bottom:0;
         width:100%;
-        background-color:white;
+        background-color:#000;
 }
 #answerButtons{
         margin:auto;
@@ -42,4 +42,8 @@
     overflow: hidden;
     border: none;
     margin: 0; padding: 0;
+}
+.pointerHover {
+	cursor: pointer;
+	user-select: none;
 }

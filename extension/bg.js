@@ -5,11 +5,11 @@ chrome.browserAction.onClicked.addListener(function (tab) { //Fired when the use
 
 chrome.runtime.onInstalled.addListener(function() {
 	let defaults={
-		interleavingTrigger: 1, 
-		lastDeck:"", 
-		interleavingDisabled:false, 
-		betaEnabled:false, 
-		deckNames:[], 
+		interleavingTrigger: 1,
+		lastDeck:"",
+		interleavingDisabled:false,
+		betaEnabled:false,
+		deckNames:[],
 		excludedDecks:[],
 		emptyDecks:[]
 	};
