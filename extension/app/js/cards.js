@@ -145,6 +145,15 @@ function answerQuestion(answer){
 	ankiConnectInvoke("guiAnswerCard", {ease:answer}).then(()=>{
 		rotateDeck().then(getCard).then(renderQuestion);
 	});
+	//let limit = chrome.storage.local.get(['cardLimit']);
+	let limit = 10;
+	let numAnswered = 0;
+	if (numAnswered < limit) {
+		numAnswered += 1
+	} else {
+		document.getElementById('flashcardParent').style.display = "none";
+		document.getElementsByClassName("container")[0].innerHTML += "Done";
+	}
 }
 
 function start(){
