@@ -15,29 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.querySelector('#interleavingDisabled').addEventListener('input', ()=>{
 		document.querySelector("#interleavingTrigger").disabled=document.querySelector("#interleavingDisabled").checked;
 	});
-	document.querySelector('#darkmodeEnabled').addEventListener('click', (e)=>darkmodeEnable(e));
   document.querySelector('#tickall').addEventListener('click', (e)=>tickAll(true, e));
-  document.querySelector('#untickall').addEventListener('click', (e)=>tickAll(false, e));
+	document.querySelector('#untickall').addEventListener('click', (e)=>tickAll(false, e));
+
 });
-
-// Dark mode----
-// const btn = document.querySelector("#darkmodeEnabled");
-
-// const currentTheme = localStorage.getItem("theme");
-// if (currentTheme == "dark") {
-//   document.body.classList.add("dark-theme");
-// }
-
-// btn.addEventListener("click", function () {
-//   document.body.classList.toggle("dark-theme");
-
-//   let theme = "light";
-//   if (document.body.classList.contains("dark-theme")) {
-//     theme = "dark";
-//   }
-//   localStorage.setItem("theme", theme);
-// });
-// ----Dark mode
 
 function tickAll(value, e){
   document.querySelectorAll(".deck").forEach((elem)=>elem.checked=value);
