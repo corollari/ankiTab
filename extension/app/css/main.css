@@ -1,5 +1,6 @@
 #flashcardParent{
         border:none;
+        background-color: transparent;
 }
 #answerButtonsParent{
         position:fixed;
@@ -43,6 +44,21 @@
     border: none;
     margin: 0; padding: 0;
 }
+
+/* Dark-theme on Sandbox */
+#flashcardSandboxHtml body { background-color: transparent; }
+
+#flashcardSandboxHtml .dark-theme .card {
+    background-color: #121212;
+    color: #fff;
+}
+
+/* For those who use retina images that are otherwise too big */
+#flashcardSandboxHtml img {
+    max-width: 100%;
+}
+
+
 .pointerHover {
 	cursor: pointer;
 	user-select: none;

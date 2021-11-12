@@ -1,6 +1,6 @@
 {
 	"name": "AnkiTab",
-	"version": "0.5.3",
+	"version": "0.5.4",
 	"description": "Replace new tab page with Anki flashcards",
 	"manifest_version": 2,
 	"background":{

@@ -25,6 +25,10 @@ window.addEventListener('message', async function(event) {
         document.querySelectorAll(`[src="${decodeURI(event.data.oldSrc)}"]`).forEach(async (elem)=>{
           elem.src = event.data.newSrc
         });
+        break;
+    case 'toggle-dark-theme': 
+        document.body.classList.toggle("dark-theme");
+        break;
     }
 })
 
