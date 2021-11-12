@@ -24,6 +24,9 @@
 - [**Chrome** extension][link-cws] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/ihoaepdiibjbifnhcjoaddgcnfgjmjdk.svg?label=%20">][link-cws]
 - [**Firefox** add-on](https://github.com/corollari/ankiTab/issues/3)
 
+### Recent releases
+- v0.5.4 (Nov 11, 2021) - improved dark mode (cards are made white-on-black text), image widths now limited to <100% of card width. 
+
 ## Build
 ##### Setup:
 ```bash
